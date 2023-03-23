@@ -1,3 +1,4 @@
+ARG GREET_ARG="Hallo"
 FROM maven as build
 WORKDIR /usr/src/mymaven
 COPY pom.xml .
@@ -6,10 +7,11 @@ COPY . .
 RUN mvn clean package -DskipTest
 
 FROM maven as dev
+ARG GREET_ARG
 COPY --from=build /root/.m2 /root/.m2
 WORKDIR /usr/src/mymaven
 COPY . .
-ENV GREET "Hallo"
+ENV GREET=${GREET_ARG}
 CMD ["./mvnw", "spring-boot:run"]
 
 FROM openjdk:21-slim

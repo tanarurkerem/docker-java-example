@@ -9,4 +9,6 @@ services:
     working_dir: /usr/src/mymaven
     environment:
       MAVEN_CONFIG: /var/maven/.m2
+      HOME: /var/maven
     user: "1000"
+    command: ./mvnw -Duser.home=/var/maven spring-boot:run

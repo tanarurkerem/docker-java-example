@@ -2,13 +2,13 @@
 version: "3.8"
 services:
   console:
-    image: maven
+    image: springapp:dev
+    build:
+      context: .
+      target: dev
     volumes:
       - ./:/usr/src/mymaven
-      - ./.m2:/var/maven/.m2
-    working_dir: /usr/src/mymaven
+    ports:
+      - 8080:8080
     environment:
-      MAVEN_CONFIG: /var/maven/.m2
-      HOME: /var/maven
-    user: "1000"
-    command: ./mvnw -Duser.home=/var/maven spring-boot:run
+      GREET: "Szia"
